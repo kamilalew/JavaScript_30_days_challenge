@@ -6,7 +6,7 @@
 </head>
 <body>
 
-
+    <div class="london">London</div>
     <div class="clock">
       <div class="clock-face">
         <div class="hand hour-hand"></div>
@@ -34,12 +34,22 @@
       align-items: center;
     }
 
+    .london {
+      position: absolute;
+      top: 100px; 
+      left: 43%;
+      font-size: 5rem;
+      color: black;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
     .clock {
       width: 30rem;
       height: 30rem;
       border: 20px solid white;
       border-radius: 50%;
-      margin: 50px auto;
+      margin: 70px auto;
       position: relative;
       padding: 2rem;
       box-shadow:
@@ -58,16 +68,46 @@
 
     .hand {
       width: 50%;
-      height: 6px;
+      height: 5px;
       background: black;
       position: absolute;
       top: 50%;
+      transform-origin: 100%;
+      transform: rotate(90deg);
+      transition-timing-function: cubic-bezier(0.42, 0, 0.29, 1.16);
+    }
+
+    .hour-hand {
+      height: 8px;
+    }
+    .second-hand {
+      height: 3px;
     }
 
   </style>
 
   <script>
 
+function setDate() {
+
+  let date = new Date();
+  let hour = date.getHours();
+  let hourDegrees = (hour / 12) * 360 + 90; 
+  console.log(hour)
+  document.querySelector('.hour-hand').style.transform=`rotate(${hourDegrees}deg)`
+
+  let minute = date.getMinutes();
+  let minuteDegrees = (minute / 60) * 360 + 90; 
+  document.querySelector('.min-hand').style.transform=`rotate(${minuteDegrees}deg)`
+
+  let seconds = date.getSeconds(); 
+  let secondsDegrees = ((seconds / 60) * 360) + 90; 
+  document.querySelector('.second-hand').style.transform=`rotate(${secondsDegrees}deg)`
+  console.log(seconds);
+
+}
+
+setInterval(setDate, 1000)
 
   </script>
 </body>
